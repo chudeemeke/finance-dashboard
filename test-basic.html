@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard - Basic Test</title>
+    
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+    
+    <script>
+        // Test basic React setup
+        const { createElement: h } = React;
+        
+        const TestApp = () => {
+            return h('div', { className: 'min-h-screen flex items-center justify-center' },
+                h('div', { className: 'bg-white rounded-lg shadow-lg p-8 max-w-md' },
+                    h('h1', { className: 'text-2xl font-bold text-gray-900 mb-4' }, 
+                        'Finance Dashboard Test'
+                    ),
+                    h('p', { className: 'text-gray-600 mb-4' }, 
+                        'Basic React setup is working!'
+                    ),
+                    h('div', { className: 'space-y-2' },
+                        h('p', { className: 'text-sm' }, `React: ${React.version}`),
+                        h('p', { className: 'text-sm' }, `ReactDOM: ${ReactDOM.version}`),
+                        h('p', { className: 'text-sm' }, 'Tailwind CSS: Loaded'),
+                        h('p', { className: 'text-sm text-green-600 font-semibold mt-4' }, 
+                            '✅ All basic dependencies are working!'
+                        )
+                    ),
+                    h('a', { 
+                        href: './index.html',
+                        className: 'mt-6 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+                    }, 'Go to Main App')
+                )
+            );
+        };
+        
+        // Render the test app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(h(TestApp));
+        
+        console.log('Test page loaded successfully');
+    </script>
+</body>
+</html>
