@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Finance Dashboard</title>
+    
+    <!-- 
+        ===================================================================
+        EXTERNAL LIBRARIES SECTION
+        Load order is critical - React must load before ReactDOM
+        ===================================================================
+    -->
+    
+    <!-- React Core Library v18.2.0 - Foundation for component system -->
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    
+    <!-- React DOM v18.2.0 - Renders React components to DOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    
+    <!-- 
+        ===================================================================
+        CHARTING AND VISUALIZATION LIBRARIES
+        ===================================================================
+    -->
+    
+    <!-- Recharts initialization fix - Must be before Recharts loads -->
+    <script>window.Recharts = window.Recharts || {};</script>
+    
+    <!-- Recharts v2 - Data visualization library for React -->
+    <script src="https://cdn.jsdelivr.net/npm/recharts@2/dist/Recharts.js"></script>
+    
+    <!-- Lucide Icons - Modern icon library -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- 
+        ===================================================================
+        STYLING FRAMEWORK
+        ===================================================================
+    -->
+    
+    <!-- Tailwind CSS - Utility-first CSS framework -->
+    <!-- WARNING: CDN version should not be used in production -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 
+        ===================================================================
+        PROGRESSIVE WEB APP (PWA) CONFIGURATION
+        ===================================================================
+    -->
+    
+    <!-- PWA Manifest - Defines app metadata for installation -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Theme Color - Browser UI color when app is installed -->
+    <meta name="theme-color" content="#3b82f6">
+    
+    <!-- 
+        ===================================================================
+        CUSTOM STYLES
+        Loading spinner animation for initial app load
+        ===================================================================
+    -->
+    <style>
+        /* Loading spinner styles */
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Spinner rotation animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 
+        ===================================================================
+        NOSCRIPT FALLBACK
+        Displays when JavaScript is disabled in the browser
+        ===================================================================
+    -->
+    <noscript>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md text-center">
+                <h2 class="text-xl font-bold text-red-800 mb-2">JavaScript Required</h2>
+                <p class="text-red-600">Please enable JavaScript to use the Finance Dashboard.</p>
+            </div>
+        </div>
+    </noscript>
+    
+    <!-- 
+        ===================================================================
+        ROOT APPLICATION CONTAINER
+        React will mount the application here
+        ===================================================================
+    -->
+    <div id="root" class="min-h-screen">
+        <!-- Initial loading state - replaced when React mounts -->
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="text-center">
+                <div class="loading-spinner mx-auto mb-4"></div>
+                <p class="text-gray-600 font-medium">Loading Finance Dashboard...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 
+        ===================================================================
+        APPLICATION SCRIPTS - CRITICAL LOAD ORDER
+        
+        The order of these scripts is extremely important:
+        1. Dependency fixes must load first
+        2. Utilities and fixes before configuration
+        3. Storage before state management
+        4. Core components before features
+        5. Debug scripts at the end
+        ===================================================================
+    -->
+    
+    <!-- PHASE 1: Core Dependencies and Fixes -->
+    <!-- Patches for third-party library compatibility -->
+    <script src="temp-fix-deps.js"></script>
+    
+    <!-- PHASE 2: Utility Initialization -->
+    <!-- Global utilities (DateUtils, StorageUtils, etc.) -->
+    <script src="app-utils-init.js"></script>
+    
+    <!-- Privacy settings utilities fix -->
+    <script src="app-utils-privacy-fix.js"></script>
+    
+    <!-- Component registration and validation -->
+    <script src="app-component-fix.js"></script>
+    
+    <!-- Render debugging -->
+    <script src="app-render-debug.js"></script>
+    
+    <!-- PHASE 3: Configuration and Storage -->
+    <!-- Application configuration and settings -->
+    <script src="app-config.js"></script>
+    
+    <!-- Storage abstraction layer -->
+    <script src="app-storage.js"></script>
+    
+    <!-- Storage initialization handler -->
+    <script src="app-storage-init.js"></script>
+    
+    <!-- PHASE 4: State Management -->
+    <!-- Global state management system -->
+    <script src="app-state.js"></script>
+    
+    <!-- PHASE 5: Core Components -->
+    <!-- Authentication components (login, register, etc.) -->
+    <script src="app-components-auth.js"></script>
+    
+    <!-- Application initialization pipeline -->
+    <script src="app-init.js"></script>
+    
+    <!-- Main UI components (header, dashboard, etc.) -->
+    <script src="app-components-main.js"></script>
+    
+    <!-- Finance-specific components (transactions, budgets, etc.) -->
+    <script src="app-components-finance.js"></script>
+    
+    <!-- Main application entry point -->
+    <script src="app-main.js"></script>
+    
+    <!-- PHASE 6: Advanced Features -->
+    <!-- International support and localization -->
+    <script src="app-features-international.js"></script>
+    
+    <!-- Third-party service integrations -->
+    <script src="app-features-integration.js"></script>
+    
+    <!-- Progressive Web App functionality -->
+    <script src="app-features-pwa.js"></script>
+    
+    <!-- Advanced features (AI, predictions, etc.) -->
+    <script src="app-features-advanced.js"></script>
+    
+    <!-- Security and privacy features -->
+    <script src="app-features-security.js"></script>
+    
+    <!-- Gamification and achievements -->
+    <script src="app-features-gamification.js"></script>
+    
+    <!-- Integration management system -->
+    <script src="app-features-integration-manager.js"></script>
+    
+    <!-- Phase 3 completion and final setup -->
+    <script src="app-phase3-complete.js"></script>
+    
+    <!-- PHASE 7: Debug Tools (Development Only) -->
+    <!-- Component availability debugging -->
+    <script src="app-debug-components.js"></script>
+</body>
+</html>

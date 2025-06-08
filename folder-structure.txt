@@ -1,0 +1,28 @@
+Finance Dashboard - New Folder Structure
+=======================================
+
+/finance-dashboard
+├── /src                    # Source code
+│   ├── /components        # React components
+│   │   ├── /auth         # Authentication components
+│   │   ├── /common       # Shared/common components
+│   │   ├── /dashboard    # Dashboard specific components
+│   │   ├── /finance      # Finance feature components
+│   │   └── /layout       # Layout components
+│   ├── /features         # Feature modules
+│   │   ├── /advanced     # AI & predictions
+│   │   ├── /gamification # Achievements & rewards
+│   │   ├── /integration  # Third-party integrations
+│   │   ├── /international # i18n & localization
+│   │   ├── /pwa         # Progressive Web App
+│   │   └── /security    # Security features
+│   ├── /hooks           # Custom React hooks
+│   ├── /utils           # Utility functions
+│   ├── /config          # Configuration files
+│   ├── /state           # State management
+│   └── /services        # API & external services
+├── /public              # Static assets
+├── /docs                # Documentation
+├── /tests               # Test files
+├── /scripts             # Build & utility scripts
+└── /temp                # Temporary files & backups
