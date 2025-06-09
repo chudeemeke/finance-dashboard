@@ -8,7 +8,7 @@
     <!-- 
         ===================================================================
         EXTERNAL LIBRARIES SECTION
-        React is now loaded dynamically by react-cdn-fix.js
+        React is loaded dynamically by react-cdn-fix.js
         This ensures proper fallback handling if CDN fails
         ===================================================================
     -->
@@ -74,9 +74,32 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Loading progress styles */
+        .loading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e5e7eb;
+            z-index: 9999;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            background: #3b82f6;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Loading Progress Bar -->
+    <div class="loading-progress" id="loading-progress">
+        <div class="loading-progress-bar" id="loading-progress-bar"></div>
+    </div>
+    
     <!-- 
         ===================================================================
         NOSCRIPT FALLBACK
@@ -104,107 +127,46 @@
             <div class="text-center">
                 <div class="loading-spinner mx-auto mb-4"></div>
                 <p class="text-gray-600 font-medium">Loading Finance Dashboard...</p>
+                <p class="text-gray-400 text-sm mt-2" id="loading-status">Initializing React...</p>
             </div>
         </div>
     </div>
     
     <!-- 
         ===================================================================
-        APPLICATION SCRIPTS - CRITICAL LOAD ORDER
+        APPLICATION SCRIPTS - OPTIMIZED LOAD ORDER
         
-        The order of these scripts is extremely important:
-        1. React CDN fix MUST load first to ensure React is available
-        2. Initialization fix loads second
-        3. Dependency fixes must load third
-        4. Utilities and fixes before configuration
-        5. Storage before state management
-        6. Core components before features
-        7. Debug scripts at the end
+        New loading strategy:
+        1. React CDN fix loads and handles React/ReactDOM
+        2. React wait loader ensures scripts wait for React
+        3. App init fix sets up namespaces
+        4. Temp fix handles other dependencies
+        5. Script wrapper loads all other scripts in correct order
         ===================================================================
     -->
     
-    <!-- PHASE 0: React CDN Loading Fix -->
-    <!-- This MUST load before ANY other scripts that use React -->
+    <!-- PHASE 1: React Loading System -->
     <script src="./react-cdn-fix.js"></script>
+    <script src="./react-wait-loader.js"></script>
     
-    <!-- PHASE 0.5: Critical Initialization Fix -->
-    <!-- This loads after React fix but before other app scripts -->
+    <!-- PHASE 2: Core Fixes (No React dependency) -->
     <script src="./app-init-fix.js"></script>
-    
-    <!-- PHASE 1: Core Dependencies and Fixes -->
-    <!-- Patches for third-party library compatibility -->
     <script src="./temp-fix-deps.js"></script>
     
-    <!-- PHASE 2: Utility Initialization -->
-    <!-- Global utilities (DateUtils, StorageUtils, etc.) -->
-    <script src="./app-utils-init.js"></script>
+    <!-- PHASE 3: Script Loader - Handles all other scripts -->
+    <script src="./app-scripts-wrapper.js"></script>
     
-    <!-- Privacy settings utilities fix -->
-    <script src="./app-utils-privacy-fix.js"></script>
-    
-    <!-- Component registration and validation -->
-    <script src="./app-component-fix.js"></script>
-    
-    <!-- Render debugging -->
-    <script src="./app-render-debug.js"></script>
-    
-    <!-- PHASE 3: Configuration and Storage -->
-    <!-- Application configuration and settings -->
-    <script src="./app-config.js"></script>
-    
-    <!-- Storage abstraction layer -->
-    <script src="./app-storage.js"></script>
-    
-    <!-- Storage initialization handler -->
-    <script src="./app-storage-init.js"></script>
-    
-    <!-- PHASE 4: State Management -->
-    <!-- Global state management system -->
-    <script src="./app-state.js"></script>
-    
-    <!-- PHASE 5: Core Components -->
-    <!-- Authentication components (login, register, etc.) -->
-    <script src="./app-components-auth.js"></script>
-    
-    <!-- Application initialization pipeline -->
-    <script src="./app-init.js"></script>
-    
-    <!-- Main UI components (header, dashboard, etc.) -->
-    <script src="./app-components-main.js"></script>
-    
-    <!-- Finance-specific components (transactions, budgets, etc.) -->
-    <script src="./app-components-finance.js"></script>
-    
-    <!-- Main application entry point -->
-    <script src="./app-main.js"></script>
-    
-    <!-- PHASE 6: Advanced Features -->
-    <!-- International support and localization -->
-    <script src="./app-features-international.js"></script>
-    
-    <!-- Third-party service integrations -->
-    <script src="./app-features-integration.js"></script>
-    
-    <!-- Progressive Web App functionality -->
-    <script src="./app-features-pwa.js"></script>
-    
-    <!-- Advanced features (AI, predictions, etc.) -->
-    <script src="./app-features-advanced.js"></script>
-    
-    <!-- Security and privacy features -->
-    <script src="./app-features-security.js"></script>
-    
-    <!-- Gamification and achievements -->
-    <script src="./app-features-gamification.js"></script>
-    
-    <!-- Integration management system -->
-    <script src="./app-features-integration-manager.js"></script>
-    
-    <!-- Phase 3 completion and final setup -->
-    <script src="./app-phase3-complete.js"></script>
-    
-    <!-- PHASE 7: Debug Tools (Development Only) -->
-    <!-- Component availability debugging -->
-    <script src="./app-debug-components.js"></script>
+    <script>
+        // Update loading status
+        window.addEventListener('reactLoaded', function() {
+            document.getElementById('loading-status').textContent = 'Loading components...';
+            document.getElementById('loading-progress-bar').style.width = '50%';
+        });
+        
+        // Hide loading bar when app starts
+        window.addEventListener('appReady', function() {
+            document.getElementById('loading-progress').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
