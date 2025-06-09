@@ -8,15 +8,12 @@
     <!-- 
         ===================================================================
         EXTERNAL LIBRARIES SECTION
-        Load order is critical - React must load before ReactDOM
+        React is now loaded dynamically by react-cdn-fix.js
+        This ensures proper fallback handling if CDN fails
         ===================================================================
     -->
     
-    <!-- React Core Library v18.2.0 - Foundation for component system -->
-    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-    
-    <!-- React DOM v18.2.0 - Renders React components to DOM -->
-    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <!-- React will be loaded by react-cdn-fix.js with fallback support -->
     
     <!-- 
         ===================================================================
@@ -116,17 +113,22 @@
         APPLICATION SCRIPTS - CRITICAL LOAD ORDER
         
         The order of these scripts is extremely important:
-        1. Initialization fix MUST load first
-        2. Dependency fixes must load second
-        3. Utilities and fixes before configuration
-        4. Storage before state management
-        5. Core components before features
-        6. Debug scripts at the end
+        1. React CDN fix MUST load first to ensure React is available
+        2. Initialization fix loads second
+        3. Dependency fixes must load third
+        4. Utilities and fixes before configuration
+        5. Storage before state management
+        6. Core components before features
+        7. Debug scripts at the end
         ===================================================================
     -->
     
-    <!-- PHASE 0: Critical Initialization Fix -->
-    <!-- This MUST load before any other app scripts -->
+    <!-- PHASE 0: React CDN Loading Fix -->
+    <!-- This MUST load before ANY other scripts that use React -->
+    <script src="./react-cdn-fix.js"></script>
+    
+    <!-- PHASE 0.5: Critical Initialization Fix -->
+    <!-- This loads after React fix but before other app scripts -->
     <script src="./app-init-fix.js"></script>
     
     <!-- PHASE 1: Core Dependencies and Fixes -->

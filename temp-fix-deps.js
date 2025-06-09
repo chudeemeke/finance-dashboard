@@ -32,31 +32,45 @@ if (!window.lucide) {
     window.lucide = {
         createIcons: () => {},
         icons: new Proxy({}, {
-            get: () => () => React.createElement('span', { 
-                style: { 
-                    display: 'inline-block', 
-                    width: '20px', 
-                    height: '20px', 
-                    background: '#ddd',
-                    borderRadius: '4px'
-                } 
-            })
+            get: () => () => {
+                // Check if React is available
+                if (typeof React !== 'undefined' && React.createElement) {
+                    return React.createElement('span', { 
+                        style: { 
+                            display: 'inline-block', 
+                            width: '20px', 
+                            height: '20px', 
+                            background: '#ddd',
+                            borderRadius: '4px'
+                        } 
+                    });
+                }
+                // Return a simple div if React isn't available
+                return null;
+            }
         })
     };
     
     // Add commonly used icons
     const iconNames = ['Loader2', 'Home', 'Settings', 'User', 'LogOut', 'Menu', 'X', 'Plus', 'Edit', 'Trash2'];
     iconNames.forEach(name => {
-        window.lucide[name] = () => React.createElement('span', { 
-            style: { 
-                display: 'inline-block', 
-                width: '20px', 
-                height: '20px', 
-                background: '#ddd',
-                borderRadius: '4px'
-            },
-            title: name
-        });
+        window.lucide[name] = () => {
+            // Check if React is available
+            if (typeof React !== 'undefined' && React.createElement) {
+                return React.createElement('span', { 
+                    style: { 
+                        display: 'inline-block', 
+                        width: '20px', 
+                        height: '20px', 
+                        background: '#ddd',
+                        borderRadius: '4px'
+                    },
+                    title: name
+                });
+            }
+            // Return null if React isn't available
+            return null;
+        };
     });
     
     console.warn('Lucide icons not loaded - using placeholders');
