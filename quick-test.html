@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard - Quick Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f3f4f6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-result.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .test-result.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .test-result.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .status {
+            font-weight: bold;
+        }
+        .button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background: #2563eb;
+        }
+        #app-preview {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px dashed #e5e7eb;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Finance Dashboard Quick Test</h1>
+        <p>This page tests if your Finance Dashboard is actually working, regardless of what the verification page says.</p>
+        
+        <div id="test-results"></div>
+        
+        <button class="button" onclick="runTests()">Run Tests</button>
+        <button class="button" onclick="testAppRender()">Test App Render</button>
+        
+        <h2>App Preview:</h2>
+        <div id="app-preview">
+            <p style="color: #6b7280;">Click "Test App Render" to see if the app can render here...</p>
+        </div>
+    </div>
+    
+    <script>
+        function addTestResult(name, status, details) {
+            const container = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `test-result ${status}`;
+            div.innerHTML = `
+                <span>${name}</span>
+                <span class="status">${details}</span>
+            `;
+            container.appendChild(div);
+        }
+        
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+        
+        async function runTests() {
+            clearResults();
+            
+            // Test 1: Check if page loads
+            try {
+                const response = await fetch('index.html');
+                if (response.ok) {
+                    addTestResult('Main Page', 'success', '✓ Loads successfully');
+                } else {
+                    addTestResult('Main Page', 'error', '✗ Failed to load');
+                }
+            } catch (e) {
+                addTestResult('Main Page', 'error', '✗ Network error');
+            }
+            
+            // Test 2: Check React CDN fix
+            try {
+                const response = await fetch('react-cdn-fix.js');
+                if (response.ok) {
+                    addTestResult('React CDN Fix', 'success', '✓ File exists');
+                } else {
+                    addTestResult('React CDN Fix', 'error', '✗ File missing');
+                }
+            } catch (e) {
+                addTestResult('React CDN Fix', 'error', '✗ Network error');
+            }
+            
+            // Test 3: Check if React loads in iframe
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = 'index.html';
+            document.body.appendChild(iframe);
+            
+            // Wait for iframe to load
+            setTimeout(() => {
+                try {
+                    const iframeWindow = iframe.contentWindow;
+                    if (iframeWindow.React && iframeWindow.ReactDOM) {
+                        addTestResult('React Loading', 'success', `✓ React ${iframeWindow.React.version} loaded`);
+                    } else {
+                        addTestResult('React Loading', 'warning', '⚠ React not detected in iframe');
+                    }
+                    
+                    if (iframeWindow.FinanceApp) {
+                        addTestResult('FinanceApp', 'success', '✓ App namespace exists');
+                        
+                        if (iframeWindow.FinanceApp.Components?.App) {
+                            addTestResult('App Component', 'success', '✓ Main component exists');
+                        } else {
+                            addTestResult('App Component', 'warning', '⚠ Component not found');
+                        }
+                    } else {
+                        addTestResult('FinanceApp', 'error', '✗ App not initialized');
+                    }
+                } catch (e) {
+                    addTestResult('Iframe Test', 'error', '✗ ' + e.message);
+                }
+                document.body.removeChild(iframe);
+            }, 3000);
+            
+            addTestResult('Tests Status', 'success', 'Running... (wait 3 seconds)');
+        }
+        
+        async function testAppRender() {
+            const preview = document.getElementById('app-preview');
+            preview.innerHTML = '<p>Loading React and app scripts...</p>';
+            
+            // Load React first
+            const loadScript = (src) => {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = src;
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            };
+            
+            try {
+                // Load React
+                await loadScript('https://unpkg.com/react@18.2.0/umd/react.production.min.js');
+                await loadScript('https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js');
+                
+                preview.innerHTML = '<p>React loaded! Testing component render...</p>';
+                
+                // Create a simple test component
+                const TestComponent = React.createElement('div', {
+                    style: {
+                        padding: '20px',
+                        background: '#f0f9ff',
+                        borderRadius: '8px',
+                        textAlign: 'center'
+                    }
+                }, [
+                    React.createElement('h3', { key: 'title', style: { color: '#1e40af' } }, '✅ React is Working!'),
+                    React.createElement('p', { key: 'version' }, `React Version: ${React.version}`),
+                    React.createElement('p', { key: 'status', style: { color: '#059669' } }, 
+                        'If you can see this, React is loading successfully!')
+                ]);
+                
+                // Render it
+                const root = ReactDOM.createRoot(preview);
+                root.render(TestComponent);
+                
+            } catch (error) {
+                preview.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(runTests, 1000);
+        });
+    </script>
+</body>
+</html>

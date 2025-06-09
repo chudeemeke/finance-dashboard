@@ -35,7 +35,8 @@
         './app-render-debug.js',
         './app-config.js',
         './app-storage.js',
-        './app-storage-init.js'
+        './app-storage-init.js',
+        './feature-deps-fix.js'  // Fix feature dependencies
     ];
     
     // Function to load a script
