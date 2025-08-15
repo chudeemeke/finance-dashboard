@@ -2,7 +2,7 @@
 
 A comprehensive financial management system for families, built with React and modern web technologies.
 
-## 🚀 Features
+## Features
 
 ### Core Financial Management
 - **Transaction Tracking**: Record and categorize all income and expenses
@@ -18,7 +18,7 @@ A comprehensive financial management system for families, built with React and m
 - **Data Security**: Local encryption and privacy controls
 - **International Support**: Multi-currency and localization ready
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: React 18.2.0
 - **Styling**: Tailwind CSS
@@ -28,7 +28,7 @@ A comprehensive financial management system for families, built with React and m
 - **Storage**: LocalStorage with encryption
 - **PWA**: Service Worker for offline support
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 finance-dashboard/
@@ -51,7 +51,7 @@ finance-dashboard/
 └── scripts/             # Build scripts
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v14 or higher)
@@ -77,7 +77,7 @@ npm start
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## 🔧 Configuration
+## Configuration
 
 The app can be configured through `src/config/app.config.js`:
 
@@ -86,34 +86,34 @@ The app can be configured through `src/config/app.config.js`:
 - `DEFAULT_CURRENCY`: Set default currency (USD, EUR, GBP, etc.)
 - `DATE_FORMAT`: Set date format preference
 
-## 👤 User Roles
+## User Roles
 
 - **Admin**: Full access to all features and settings
 - **Editor**: Can add/edit transactions and budgets
 - **Viewer**: Read-only access to financial data
 
-## 🔒 Security
+## Security
 
 - All sensitive data is encrypted before storage
 - No data is sent to external servers
 - Optional password protection
 - Session timeout for inactivity
 
-## 📱 Progressive Web App
+## Progressive Web App
 
 The dashboard can be installed as a PWA:
 1. Open in Chrome/Edge
 2. Click the install icon in the address bar
 3. Follow the prompts
 
-## 🧪 Testing
+## Testing
 
 Run the test suite:
 ```bash
 npm test
 ```
 
-## 📝 Development Notes
+## Development Notes
 
 ### Code Style
 - ESLint for code linting
@@ -126,12 +126,12 @@ npm test
 3. Update state management if needed
 4. Add tests in `/tests/`
 
-## 🐛 Known Issues
+## Known Issues
 
 - Chart animations may lag on older devices
 - Some features require modern browser support
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -139,17 +139,17 @@ npm test
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 📞 Support
+## Support
 
 For issues or questions:
 - Open an issue on GitHub
 - Email: your-email@example.com
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - React team for the amazing framework
 - Tailwind CSS for utility-first styling
